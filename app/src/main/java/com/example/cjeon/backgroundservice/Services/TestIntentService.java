@@ -1,10 +1,8 @@
-package com.example.cjeon.backgroundservice.Services;
+package com.example.cjeon.backgroundservice.services;
 
 import android.app.IntentService;
 import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
-
-import static android.R.attr.action;
 
 /**
  * An {@link IntentService} subclass for handling asynchronous task requests in
@@ -14,10 +12,6 @@ import static android.R.attr.action;
  * helper methods.
  */
 public class TestIntentService extends IntentService {
-    private static final String ACTION_NAME = "com.example.cjeon.backgroundservice.Services.action.NAME";
-
-    private static final String EXTRA_PARAM1 = "com.example.cjeon.backgroundservice.Services.extra.PARAM1";
-    private static final String EXTRA_PARAM2 = "com.example.cjeon.backgroundservice.Services.extra.PARAM2";
 
     public TestIntentService() {
         super("TestIntentService");
@@ -26,11 +20,10 @@ public class TestIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-//        String action = intent.getAction();
-        Integer param1 = intent.getIntExtra(EXTRA_PARAM1, -1);
+        String msg = intent.getStringExtra("msg");
 
         Intent resultIntent = new Intent("BROADCAST")
-                .putExtra("DATA", param1 + 100);
+                .putExtra("msg", msg);
         LocalBroadcastManager.getInstance(this).sendBroadcast(resultIntent);
     }
 
