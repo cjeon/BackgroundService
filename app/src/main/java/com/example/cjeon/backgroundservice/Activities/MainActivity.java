@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         IntentFilter intentFilter = new IntentFilter("BROADCAST");
+
         localBroadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -55,15 +56,15 @@ public class MainActivity extends AppCompatActivity {
         LocalBroadcastManager.getInstance(this).unregisterReceiver(localBroadcastReceiver);
     }
 
-    public void startTestIntentService(View view) {
+    public void localBroadcastWithService(View view) {
         Intent intent = new Intent(this, TestIntentService.class);
         intent.putExtra("msg", "service");
         startService(intent);
     }
 
-    public void start3sAlarm(View view) {
+    public void globalBroadcastWithAlarmManager(View view) {
         Intent intent = new Intent("BROADCAST");
-        intent.putExtra("msg", "3s");
+        intent.putExtra("msg", "alarm manager");
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
